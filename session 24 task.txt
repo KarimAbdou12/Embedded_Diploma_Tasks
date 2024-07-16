@@ -1,0 +1,166 @@
+//search of string by binary search
+
+int arrayofstring_binarysearch (char **arr, int size,char *s)
+{
+    arrayofstring_sort(arr,9);
+    arrayofstring_print(arr,9);
+
+    int first,last,middle,c=0;
+    first=0;
+    last=size-1;
+    int i,x;
+    while(1)
+    {
+        c++;
+        middle=(first+last)/2;
+        if(*(arr[middle])==(*s))
+        {
+            x=string_compare2(arr[middle],s);
+            if(x==1)
+            {
+                return middle;
+            }
+
+        }
+        else if(*(arr[middle])>s[0])
+        {
+            last=middle-1;
+        }
+        else
+        {
+            first=middle+1;
+        }
+        if(first>last)
+        {
+            return -1;
+        }
+
+    }
+
+    printf("%d \n",c);
+    return -1;
+
+
+}
+
+void arrayofstring_sort (char **arr,int size)
+{
+    int i,j,temp,c=0,sortedFlag;
+
+    for(j=0; j<size; j++)
+    {
+        sortedFlag=1;
+        for(i=0; i<size-1-j; i++)
+        {
+            c++;
+            if(string_compare3(arr[i+1],arr[i])==-1)
+            {
+                swap_pointer(&arr[i+1],&arr[i]);
+                sortedFlag=0;
+            }
+
+        }
+        if(sortedFlag==1)
+        {
+            break;
+        }
+
+    }
+    printf("s=%d c=%d\n",size,c);
+}
+
+int string_compare3 (char*s1,char*s2)
+{
+  int i;
+  for(i=0;s1[i]||s2[i];i++)
+  {
+      if(s1[i]>s2[i])
+      {
+          return 1;
+      }
+      else if(s2[i]>s1[i])
+      {
+          return -1;
+      }
+  }
+  return 1;
+
+}
+void arrayofstring_print (char**arr,int size)
+{
+    int i,j;
+    for(i=0; i<size; i++)
+    {
+        string_print(arr[i]);
+        printf("\n");
+    }
+    printf("===========================\n");
+   /* for(i=0; i<size; i++)
+    {
+        for(j=0; arr[i][j]; j++)
+        {
+            printf("%c",arr[i][j]);
+        }
+        printf("\n");
+    }
+    printf("=====================\n");*/
+
+    /*for(i=0;i<size;i++)
+    {
+        printf("%s\n",arr[i]);
+    }
+    printf("============================\n");*/
+
+}
+
+int main()
+{
+    char s1[]="ahmed saad";
+    char s2[]="nada";
+    char s3[]="osama";
+    char s[]="bahy";
+
+    char *arr[]= {s1,s3,s2,"moatas","bahy","fathy","mohamed","karim","abdelraman"};
+
+    
+    int ind =arrayofstring_binarysearch(arr,9,s);
+    printf("%d\n",ind);
+
+    return 0;
+}
+
+==========================================================
+
+static int i=0,j=0;
+void arrayofstring_search2 (char **arr, int size,char ch)
+{
+
+    for(i=0; i<size;i++)
+    {
+        for(j=0; arr[i][j];j++)
+        {
+            if(arr[i][j]==ch)
+            {
+                return;
+            }
+        }
+
+    }
+}
+
+int main()
+{
+    char s1[]="ahmed saad";
+    char s2[]="nada";
+    char s3[]="osama";
+    // char s[]="bahy";
+
+    char *arr[]= {s1,s2,s3,"moatas","bahy","fathy","mohamed","karim","abdelraman"};
+
+    arrayofstring_search2(arr,9,'s');
+    printf("string : %d char : %d\n",i,j);
+
+    return 0;
+}
+
+======================================================

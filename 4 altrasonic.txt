@@ -1,0 +1,51 @@
+
+int main(void)
+{
+	
+	DIO_Init();
+	
+	LCD_Init();
+	KEYPAD_Init();
+	
+	ADC_Init(VREF_AVCC,ADC_SCALER_64);
+	u16 dis;
+	LCD_SetCursor(1,4);
+	LCD_WriteString("ULTRASONIC");
+	
+	ULTRASONIC_Init();
+	
+	while (1)
+	{
+		/ULTRASONIC_Runnable();
+		
+		// for test ULTRASONIC_Getdistance
+	/*	dis=ULTRASONIC_Getdistance(Ultrasonic1);
+		LCD_SetCursor(2,1);
+		LCD_WriteNumber(dis);
+		LCD_WriteString("	");*/
+		
+		
+		// for test ULTRASONIC_GetdistanceAll
+/*		ULTRASONIC_GetdistanceAll(distanceAll);
+		
+		LCD_SetCursor(2,1);
+		LCD_WriteNumber(distanceAll[0]);
+		LCD_WriteString("  ");
+		
+		LCD_SetCursor(2,5);
+		LCD_WriteNumber(distanceAll[1]);
+		LCD_WriteString("  ");
+		
+		LCD_SetCursor(2,9);
+		LCD_WriteNumber(distanceAll[2]);
+		LCD_WriteString("  ");
+		
+		LCD_SetCursor(2,13);
+		LCD_WriteNumber(distanceAll[3]);
+		LCD_WriteString("  ");
+		
+		*/
+
+	 }
+	
+}

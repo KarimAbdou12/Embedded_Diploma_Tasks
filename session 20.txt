@@ -1,0 +1,188 @@
+int *array_scan_dynamic (int *psize)
+{
+    int size;
+    int i=0;
+    printf("enter the siz o array\n");
+    scanf("%d",&size);
+    int *arr=(int *)malloc(size*sizeof(int));
+    printf("enter data \n");
+    if(arr!=(void *)0)
+    {
+        for(; i<size; i++)
+        {
+            scanf("%d",&arr[i]);
+        }
+    }
+    arr[i]=0;
+    *psize=size;
+    return arr;
+
+}
+
+int *array_scan_dynamic (int *psize);
+void array_print(int *arr,int size);
+int main()
+{
+   int size ;
+    int *arr=array_scan_dynamic(&size);
+    array_print(arr,size);
+
+===========================================
+int fact(int n)
+{
+
+    int i,r=1;
+
+    for(i=1; i<=n; i++)
+    {
+        r=r*i;
+    }
+ printf("f:%d\n",r);
+
+    return r;
+}
+==================================
+int fact_rec(int n)
+{
+    if(n==0)
+    {
+        return 1;
+    }
+printf("%d\n",n);
+    return n*fact_rec(n-1);
+}
+
+
+
+=====================================
+
+int ff3(int n)
+{
+    if(n==0)
+    {
+        return 0;
+    }
+    return n+ff3(n-1);
+}
+===================================
+int func33(int x)
+{
+
+    if(x==0)
+        return 1;
+    else
+    {
+        printf("%d",x);
+        func33(x-1);
+    }
+}
+==================================
+int fibo(int n)
+{
+
+    int i,n0,n1,nn;
+    n0=0;
+    n1=1;
+    for(i=0;i<n-1;i++)
+    {
+        nn=n0+n1;
+        n0=n1;
+        n1=nn;
+    }
+    return nn;
+
+}
+=================================
+int fibo_rec(int n)
+{
+    if(n<2)
+        return n;
+    return fibo_rec(n-1)+fibo_rec(n-2);
+}
+============================
+
+int baseOf2_1(int n)
+{
+    return n&&(!(n&(n-1)));
+}
+
+==========================
+
+int baseOf2_2(unsigned int n)
+{
+    return n&&(!(0x80000000%n));
+}
+
+
+===============================
+
+int baseOf2_3(unsigned int n)
+{
+    if(    (n==0x01)||(n==0x02)||(n==0x04)||(n==0x08)
+        ||(n==0x10)||(n==0x20)||(n==0x40)||(n==0x80)
+       ||(n==0x100)||(n==0x200)||(n==0x400)||(n==0x800))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+=================================
+
+void reverseWord(char*str,int f,int l)
+{
+    char temp;
+    for(;f<=l;)
+    {
+        temp=str[f];
+        str[f]=str[l];
+        str[l]=temp;
+        f++;
+        l--;
+    }
+}
+
+void string_reverseWords(char*str)
+{
+    int i,f=0,l,len=string_len(str);
+    reverseWord(str,0,len-1);
+    for(i=0;str[i];i++)
+    {
+        if(str[i]==' ')
+        {
+            l=i-1;
+            reverseWord(str,f,l);
+            f=i+1;
+        }
+        else
+        {
+        }
+    }
+     l=i-1;
+     reverseWord(str,f,l);
+
+}
+
+int main()
+{
+
+    char str[]="Iam work as an embedded software engineer for 6 years";
+
+    string_print(str);
+    string_reverseWords(str);
+    string_print(str);
+
+
+
+int i;
+    for(i=0;i<50;i++)
+    {
+     //  printf("%d  ",fibo_rec(i));
+    }
+
+    return 0;
+}
+=========================================

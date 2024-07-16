@@ -1,0 +1,25 @@
+
+
+int main(void)
+{
+	
+	DIO_Init();
+	
+	LCD_Init();
+	KEYPAD_Init();
+	//MOTOR_Init();
+	
+	//PORTC=0xff;
+	
+	ADC_Init(VREF_AVCC,ADC_SCALER_64);
+	
+	//sei();
+	RGB_Init();
+	
+	while (1)
+	{
+		Moving_All_Color();
+	}
+	
+	
+}

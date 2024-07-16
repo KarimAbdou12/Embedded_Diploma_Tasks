@@ -1,0 +1,48 @@
+void ATM (int num)
+{
+   while(num>=200)
+   {
+       printf("%d  ",200);
+       num-=200;
+   }
+   while(num>=100)
+   {
+       printf("%d  ",100);
+       num-=100;
+   }
+   while(num>=50)
+   {
+       printf("%d  ",50);
+       num-=50;
+   }
+   while(num>=20)
+   {
+       printf("%d  ",20);
+       num-=20;
+   }
+    while(num>=10)
+   {
+       printf("%d  ",10);
+       num-=10;
+   }
+   while(num>=5)
+   {
+       printf("%d  ",5);
+       num-=5;
+   }
+   while(num>=1)
+   {
+       printf("%d  ",1);
+       num-=1;
+   }
+
+}
+
+int main()
+{
+    ATM(556);
+
+    return 0;
+}
+
+/*****************************************/

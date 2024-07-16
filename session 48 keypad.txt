@@ -1,0 +1,71 @@
+task 1 
+
+i write num and when press on = show his binary number and his hex num 
+
+
+int main(void)
+{  
+
+DIO_Init();
+MOTOR_Init();
+LCD_Init();
+KEYPAD_Init();
+u8 i=255,x=2,y=5,k;
+
+u8 customChar[] = {
+	0x04,
+	0x0A,
+	0x04,
+	0x0E,
+	0x15,
+	0x0A,
+	0x0A,
+	0x00
+};
+
+
+
+u32 num=0;
+u8 flag=0;
+ LCD_SetCursor(1,1);
+    while (1) 
+    {
+		  k=KEYPAD_GetKey();
+          if (k!=NO_KEY)
+          {
+			  if(k>='0'&&k<='9')
+			  {
+				  if (flag==0)
+				  {
+					  LCD_SetCursor(1,1);
+					  LCD_WriteString("          ");
+					  LCD_SetCursor(1,1);
+					  flag=1;
+				  }
+				  
+				   num=num*10+k-'0';
+				   LCD_WriteChar(k);
+			  }
+			 
+			  else if (k=='=')
+			  {
+				  LCD_SetCursor(2,1);
+				  LCD_WriteBinary(num);
+				  LCD_SetCursor(2,11);
+				  LCD_WriteHex(num);
+				  num=0;
+				  
+				  flag=0;
+			  }
+			  else if (k=='c')
+			  {
+				  LCD_Clear();
+				   num=0;
+			  }
+			  
+			 
+			  
+          }
+		  
+    }
+}

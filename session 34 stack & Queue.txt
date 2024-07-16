@@ -1,0 +1,94 @@
+stack.c
+
+#include "stack.h"
+
+
+static int STACK[stack_size];
+static int sp;  //stack pointer
+
+stackstatus_t push (int data)
+{
+    stackstatus_t status;
+    if(sp==stack_size)
+    {
+        status =stack_full;
+    }
+    else
+    {
+        STACK[sp]=data;
+        sp++;
+        status =stack_ok;
+    }
+    return status;
+
+}
+
+
+stackstatus_t pop (int *pdata)
+{
+    stackstatus_t status;
+    if(sp==0)
+    {
+        status=stack_empty;
+    }
+    else
+    {
+        sp--;
+        *pdata=STACK[sp];
+        status= stack_ok;
+    }
+
+    return status;
+}
+/***********************************/
+stack.h
+
+#define stack_size 5
+
+
+typedef enum
+{
+    stack_full,
+    stack_empty,
+    stack_ok,
+
+}stackstatus_t;
+/***********************************/
+main.c
+
+int main()
+{
+    int x,y;
+    while(1)
+    {
+        scanf("%d",&x);
+        if(0==x)//pop
+        {
+            if(pop(&y)==stack_empty)
+            {
+                printf("STACK EMPTY\n");
+            }
+            else
+            {
+                printf("Data = %d\n",y);
+            }
+        }
+        else//push
+        {
+            if(push(x)==stack_full)
+            {
+                printf("STACK FULL\n");
+            }
+            else
+            {
+                printf("%d is pushed \n",x);
+            }
+        }
+    }
+
+
+return 0;
+}
+/*****************************************/
+=====================================================
+/*****************************************/

@@ -1,0 +1,475 @@
+
+// LDR with leds
+
+int main(void)
+{
+	
+	DIO_Init();
+	MOTOR_Init();
+	LCD_Init();
+	KEYPAD_Init();
+
+	LCD_WriteString("ADC");
+
+	ADC_Init(VREF_AVCC,ADC_SCALER_64);
+
+	u16 x;
+	
+	while (1)
+	{
+		x=ADC_Read(CH_7);
+		LCD_SetCursor(2,1);
+		LCD_WriteNumber(x);
+		LCD_WriteString("      ");
+		
+		if(1017<=x)
+		{
+			DIO_WritePort(PB,0xff);
+		}
+		else if(x>=989&&x<1017)
+		{
+			DIO_WritePort(PB,0xfe);
+		}
+		else if(x>=957&&x<989)
+		{
+			DIO_WritePort(PB,0xfc);
+		}
+		else if(x>=898&&x<957)
+		{
+			DIO_WritePort(PB,0xf8);
+		}
+		else if(x>=758&&x<898)
+		{
+			DIO_WritePort(PB,0xf0);
+		}
+		else if(x>=602&&x<758)
+		{
+			DIO_WritePort(PB,0xe0);
+		}
+		else if(x>=427&&x<602)
+		{
+			DIO_WritePort(PB,0xc0);
+		}
+		else if(x>=228&&x<427)
+		{
+			DIO_WritePort(PB,0x80);
+		}
+		else if(x<228)
+		{
+			DIO_WritePort(PB,0x00);
+		}
+		
+	}
+	
+	
+}
+
+/********************************/
+
+
+int main(void)
+{
+	
+	DIO_Init();
+	//MOTOR_Init();
+	LCD_Init();
+	KEYPAD_Init();
+	
+	u8 Sound8[] =  {
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F
+	};
+	u8 Sound7 []= {
+		0x00,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F
+	};
+	u8 Sound6 []= {
+		0x00,
+		0x00,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F
+	};
+	u8 Sound5 []= {
+		0x00,
+		0x00,
+		0x00,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F
+	};
+	u8 Sound4 []= {
+		0x00,
+		0x00,
+		0x00,
+		0x00,
+		0x1F,
+		0x1F,
+		0x1F,
+		0x1F
+	};
+	u8 Sound3 []= {
+		0x00,
+		0x00,
+		0x00,
+		0x00,
+		0x00,
+		0x1F,
+		0x1F,
+		0x1F
+	};
+	u8 Sound2 []=  {
+		0x00,
+		0x00,
+		0x00,
+		0x00,
+		0x00,
+		0x00,
+		0x1F,
+		0x1F
+	};
+	u8 Sound1 []= {
+		0x00,
+		0x00,
+		0x00,
+		0x00,
+		0x00,
+		0x00,
+		0x00,
+		0x1F
+	};
+	
+	LCD_CustomChar(0,Sound1);
+	LCD_CustomChar(1,Sound2);
+	LCD_CustomChar(2,Sound3);
+	LCD_CustomChar(3,Sound4);
+	LCD_CustomChar(4,Sound5);
+	LCD_CustomChar(5,Sound6);
+	LCD_CustomChar(6,Sound7);
+	LCD_CustomChar(7,Sound8);
+	
+	LCD_WriteString("VOLTAGE");
+
+	ADC_Init(VREF_AVCC,ADC_SCALER_64);
+
+	u16 x;
+	LCD_Clear();
+	while (1)
+	{
+		x=ADC_ReadVolt(CH_0);
+		
+		if(x<300)
+		{
+			LCD_Clear();
+		}
+		else if(x>=300&&x<600)
+		{
+			LCD_SetCursor(2,1);
+			LCD_WriteChar(0);
+			LCD_WriteString("                    ");
+		}
+		else if(x>=600&&x<900)
+		{
+			LCD_SetCursor(2,1);
+			LCD_WriteChar(0);
+			LCD_WriteChar(1);
+			LCD_WriteString("                   ");
+		}
+		else if(x>=600&&x<900)
+		{
+			LCD_SetCursor(2,1);
+			LCD_WriteChar(0);
+			LCD_WriteChar(1);
+			LCD_WriteChar(2);
+			LCD_WriteString("                   ");
+		}
+		else if(x>=900&&x<1200)
+		{
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<4;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			LCD_WriteString("                  ");
+		}
+		else if(x>=1200&&x<1500)
+		{
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<5;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			
+			LCD_WriteString("                ");
+		}
+		else if(x>=1500&&x<1800)
+		{
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<6;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			LCD_WriteString("               ");
+		}
+		else if(x>=1500&&x<1800)
+		{
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<7;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			LCD_WriteString("              ");
+		}
+		else if(x>=1800&&x<2100)
+		{
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<8;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			LCD_WriteString("                 ");
+			LCD_SetCursor(1,9);
+			LCD_WriteString("                 ");
+		}
+		else if(x>=2100&&x<2400)
+		{
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<8;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			for(u8 i=0;i<1;i++)
+			{
+				LCD_WriteChar(7);
+			}
+			LCD_WriteString("            ");
+			LCD_SetCursor(1,9);
+			LCD_WriteChar(0);
+			LCD_WriteString("            ");
+		}
+		else if(x>=2400&&x<2700)
+		{
+			LCD_SetCursor(2,1);
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<8;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			for(u8 i=0;i<2;i++)
+			{
+				LCD_WriteChar(7);
+			}
+			LCD_WriteString("           ");
+			LCD_SetCursor(1,9);
+			LCD_WriteChar(0);
+			LCD_WriteChar(1);
+			LCD_WriteString("           ");
+		}
+		else if(x>=2700&&x<3000)
+		{
+			LCD_SetCursor(2,1);
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<8;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			for(u8 i=0;i<3;i++)
+			{
+				LCD_WriteChar(7);
+			}
+			LCD_WriteString("         ");
+			LCD_SetCursor(1,9);
+			LCD_WriteChar(0);
+			LCD_WriteChar(1);
+			LCD_WriteChar(2);
+			LCD_WriteString("         ");
+		}
+		else if(x>=3000&&x<3300)
+		{
+			LCD_SetCursor(2,1);
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<8;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			for(u8 i=0;i<4;i++)
+			{
+				LCD_WriteChar(7);
+			}
+			LCD_WriteString("        ");
+			LCD_SetCursor(1,9);
+			for(u8 i=0;i<4;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			LCD_WriteString("        ");
+		}
+		else if(x>=3300&&x<3650)
+		{
+			LCD_SetCursor(2,1);
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<8;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			for(u8 i=0;i<5;i++)
+			{
+				LCD_WriteChar(7);
+			}
+			LCD_WriteString("       ");
+			LCD_SetCursor(1,9);
+			for(u8 i=0;i<5;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			LCD_WriteString("       ");
+		}
+		else if(x>=3650&&x<4100)
+		{
+			LCD_SetCursor(2,1);
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<8;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			for(u8 i=0;i<6;i++)
+			{
+				LCD_WriteChar(7);
+			}
+			LCD_WriteString("      ");
+			LCD_SetCursor(1,9);
+			for(u8 i=0;i<6;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			LCD_WriteString("      ");
+		}
+		else if(x>=4100&&x<4600)
+		{
+			LCD_SetCursor(2,1);
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<8;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			for(u8 i=0;i<7;i++)
+			{
+				LCD_WriteChar(7);
+			}
+			LCD_WriteString("     ");
+			LCD_SetCursor(1,9);
+			for(u8 i=0;i<7;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			LCD_WriteString("     ");
+		}
+		else if(x>=4600)
+		{
+			LCD_SetCursor(2,1);
+			for(u8 i=0;i<8;i++)
+			{
+				LCD_WriteChar(i);
+			}
+			for(u8 i=0;i<8;i++)
+			{
+				LCD_WriteChar(7);
+			}
+			LCD_SetCursor(1,9);
+			for(u8 i=0;i<9;i++)
+			{
+				LCD_WriteChar(i);
+			}
+		
+
+		}
+		
+		
+		
+	}
+	
+	
+}
+	
+/*****************************************/
+
+//LDR Sensor
+
+//main
+
+DIO_Init();
+	MOTOR_Init();
+	LCD_Init();
+	KEYPAD_Init();
+
+	LCD_WriteString("Voltage");
+
+	ADC_Init(VREF_AVCC,ADC_SCALER_64);
+
+	u16 x;
+	
+	while (1)
+	{
+		x=ADC_ReadVolt(CH_7);
+		LCD_SetCursor(2,1);
+		LCD_WriteNumber(x);
+		LCD_WriteString("      ");
+		
+		if(4300<=x)
+		{
+			DIO_WritePort(PB,0xff);
+		}
+		else if(x>=3715&&x<4300)
+		{
+			DIO_WritePort(PB,0xfe);
+		}
+		else if(x>=3130&&x<3715)
+		{
+			DIO_WritePort(PB,0xfc);
+		}
+		else if(x>=2545&&x<3130)
+		{
+			DIO_WritePort(PB,0xf8);
+		}
+		else if(x>=1960&&x<2545)
+		{
+			DIO_WritePort(PB,0xf0);
+		}
+		else if(x>=1375&&x<1960)
+		{
+			DIO_WritePort(PB,0xe0);
+		}
+		else if(x>=790&&x<1375)
+		{
+			DIO_WritePort(PB,0xc0);
+		}
+		else if(x>=205&&x<790)
+		{
+			DIO_WritePort(PB,0x80);
+		}
+		else if(x<205)
+		{
+			DIO_WritePort(PB,0x00);
+		}
+		
+	}
+	
+	
+/**************************************/

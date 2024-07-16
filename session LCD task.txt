@@ -1,0 +1,188 @@
+
+karim >> move
+
+int main(void)
+{
+	DIO_Init();
+	LCD_Init();
+	
+	s8 i=1,j=-3,ind=0;
+	while(1)
+	{
+		j=-3;
+		i=1;
+		for(;i<=12;i++)
+		{
+			
+			LCD_SetCursor(1,i);
+			LCD_WriteString("karim");
+			_delay_ms(300);
+			if(i==12)
+			{
+				for(;j<=16;j++)
+				{
+					i++;
+					LCD_SetCursor(1,i);
+					LCD_WriteString("karim");
+					
+					LCD_SetCursor(1,0x40+j);
+					LCD_WriteString("karim");
+					
+					_delay_ms(300);
+					LCD_Clear();
+					
+				}
+				
+			}
+			
+			LCD_Clear();
+			
+		}
+	}
+	
+
+}
+
+/************************************/
+man
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2); // RS, E, D4, D5, D6, D7
+
+byte customChar[] = {
+  0x06,
+  0x06,
+  0x04,
+  0x0E,
+  0x15,
+  0x04,
+  0x0A,
+  0x11
+};
+
+void setup() {
+  lcd.begin(16, 2);
+  lcd.createChar(0, customChar);
+  lcd.home();
+  lcd.write(0);
+}
+
+void loop() { }
+=====================
+
+2nd man
+byte customChar[] = {
+  0x0C,
+  0x0C,
+  0x04,
+  0x0E,
+  0x15,
+  0x04,
+  0x0A,
+  0x11
+};
+==================
+
+win
+byte customChar[] = {
+  B00100,
+  B01110,
+  B10101,
+  B01110,
+  B00100,
+  B00100,
+  B01010,
+  B10001
+};
+
+===================
+sahm
+byte customChar[] = {
+  0x00,
+  0x00,
+  0x04,
+  0x02,
+  0x1F,
+  0x02,
+  0x04,
+  0x00
+};
+
+===================
+3akba
+byte customChar[] = {
+  0x00,
+  0x00,
+  0x1F,
+  0x1F,
+  0x1F,
+  0x1F,
+  0x1F,
+  0x1F
+};
+
+====================
+
+ koos
+byte customChar[] = {
+  0x00,
+  0x04,
+  0x02,
+  0x01,
+  0x1F,
+  0x01,
+  0x02,
+  0x04
+};
+=======================
+
+die
+byte customChar[] = {
+  0x00,
+  0x00,
+  0x08,
+  0x07,
+  0x0B,
+  0x07,
+  0x0B,
+  0x04
+};
+
+=======================
+
+/******************************/
+write in CG RAM
+
+DIO_Init();
+	LCD_Init();
+	
+	
+	u8  customChar_1stman[] = {
+		0x06,
+		0x06,
+		0x04,
+		0x0E,
+		0x15,
+		0x04,
+		0x0A,
+		0x11
+	};
+	u8 customChar_2ndman[] = {
+		0x0C,
+		0x0C,
+		0x04,
+		0x0E,
+		0x15,
+		0x04,
+		0x0A,
+		0x11
+	};
+	LCD_CustomChar(0,customChar_1stman);
+	LCD_CustomChar(1,customChar_2ndman);
+	//LCD_CustomChar(0,customCharman);
+	LCD_SetCursor(1,1);
+	LCD_WriteChar(0);
+	LCD_SetCursor(1,16);
+	LCD_WriteChar(1);
+	
+======================================

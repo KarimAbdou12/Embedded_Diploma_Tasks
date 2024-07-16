@@ -1,0 +1,35 @@
+
+//read ADC by ADC_Read 
+//any volt is higher than Vref == 1023 2^10 (10 bits)
+
+
+ main
+ 
+ LCD_WriteString("ADC");
+
+	ADC_Init(VREF_AVCC,ADC_SCALER_64);
+
+	u16 x;
+	x=ADC_Read(CH_0);
+	LCD_SetCursor(2,1);
+	LCD_WriteNumber(x);
+	
+/******************************************/
+
+
+
+
+/*****************************************/
+
+while (1)
+	{
+		
+		
+		x=ADC_ReadVolt(CH_2);
+		LCD_SetCursor(2,9);
+		LCD_WriteNumber(x);
+		LCD_WriteString("   ");
+		if (x>3500)
+		{
+		}
+	}

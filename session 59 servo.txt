@@ -1,0 +1,112 @@
+
+void Servo_SetAngle(u8 angle)
+{
+	OCR1B=999+((angle*(u32)1000)/180);
+}
+
+
+int main(void)
+{  
+
+DIO_Init();
+
+MOTOR_Init();
+LCD_Init();
+KEYPAD_Init();
+  ADC_Init(VREF_AVCC,ADC_SCALER_64);
+
+//GLOBAL_ENABLE();
+  
+  TIMER0_Init(TIMER0_FASTPWM_MODE,TIMER0_SCALER_8);
+  TIMER0_OC0Mode(OC0_NON_INVERTING);
+  TIMER0_SetCompareUnit(200);
+  
+  Timer1_Init(TIMER1_FASTPWM_OCRA_TOP_MODE,TIMER1_SCALER_8);
+  Timer1_OCRA1Mode(OCRA_NON_INVERTING);
+  Timer1_OCRB1Mode(OCRB_NON_INVERTING);
+  
+ // ICR1=19999;
+  OCR1A=19999;
+  OCR1B=999;
+  
+
+volatile u8 i=1,x=0;
+u8 t1,t2;
+u32 t;
+
+    while (1) 
+    {
+	
+	Servo_SetAngle(x);
+	
+
+		LCD_SetCursor(2,1);
+		LCD_WriteNumber(x);
+		
+		x++;
+		if(x==181)
+      x=0;
+     _delay_ms(100);
+    }
+}
+
+/*********************************/
+for 180 
+
+
+servo_prog
+
+void Servo_SetAngle(u8 angle)
+{
+	OCR1B=499+((angle*(u32)2000)/180);
+}
+
+
+int main(void)
+{
+	
+	DIO_Init();
+	
+	LCD_Init();
+	KEYPAD_Init();
+	//MOTOR_Init();
+	
+	//PORTC=0xff;
+	
+	ADC_Init(VREF_AVCC,ADC_SCALER_64);
+	
+	 
+	 TIMER0_Init(TIMER0_FASTPWM_MODE,TIMER0_SCALER_8);
+	 TIMER0_OC0Mode(OC0_NON_INVERTING);
+	 TIMER0_SetCompareUnit(200);
+	 
+	 Timer1_Init(TIMER1_FASTPWM_OCRA_TOP_MODE,TIMER1_SCALER_8);
+	 Timer1_OCRA1Mode(OCRA_NON_INVERTING);
+	 Timer1_OCRB1Mode(OCRB_NON_INVERTING);
+	 
+	 // ICR1=19999;
+	 OCR1A=19999;
+	 OCR1B=999;
+	 
+
+	 volatile u8 i=1,x=0;
+	 u8 t1,t2;
+	 u32 t;
+
+	 while (1)
+	 {
+		 
+		 Servo_SetAngle(x);
+	
+
+		 LCD_SetCursor(2,1);
+		 LCD_WriteNumber(x);
+		 
+		 x++;
+		 if(x==181)
+		 x=0;
+		 _delay_ms(10);
+	 }
+	
+}
+/**************************************/

@@ -1,0 +1,23 @@
+measure External PWM By software
+
+
+ISR(TIMER0_OV_vect)
+{
+	static u8 flag=0;
+		
+	if (flag==0)
+	{
+		DIO_WritePin(PINC0,HIGH);
+		TCNT0=216;
+		flag=1;
+
+	}
+	else if (flag==1)
+	{
+		DIO_WritePin(PINC0,LOW);
+		TCNT0=96;
+		flag=0;
+	}
+	
+	
+}

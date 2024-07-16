@@ -1,0 +1,59 @@
+
+struct result {
+int mul;
+int add;
+};
+
+struct result add_mul (int n1,int n2)
+{
+    struct result r;
+    r.mul=n1*n2;
+    r.add=n1+n2;
+
+    return r;
+};
+
+
+int main()
+{
+   struct result r =add_mul(2,5);
+   printf("%d  %d\n",r.mul,r.add);
+   
+   printf("%d \n",add_mul(2,5).mul);//it is not recommended(غير مستحبه )
+
+    return 0;
+}
+
+/**********************/
+
+struct student
+{
+
+    char name[20];
+
+    int age;
+    char grade;
+
+};
+
+typedef struct student student_t;
+
+=====================
+
+typedef struct student{
+    char name[20];
+    int age;
+    char grade ;
+
+}student_t;
+
+====================
+
+typedef struct {
+char name[20];
+    int age;
+    char grade ;
+}student_t;
+
+==================
+/**********************/

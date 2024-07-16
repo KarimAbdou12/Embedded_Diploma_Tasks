@@ -1,0 +1,172 @@
+char flag=0;
+	DDRB=0XFF;
+	DDRC=0;
+	PORTC=0X0F; //pull up resistor (pin default vcc)
+	
+	while (1)
+	{
+		if(READ_BIT(PINC,0)==1)
+		{
+			PORTB=0x0f;
+		}
+		if(READ_BIT(PINC,0)==0)
+		{
+			PORTB=0xff;
+		}
+
+	}
+/*******************************************/
+
+#define  PORTA    (*(volatile unsigned char *)0x3B)
+#define  DDRA    (*(volatile unsigned char *)0x3A)
+#define  PINA    (*(volatile unsigned char *)0x39)
+
+#define  PORTB    (*(volatile unsigned char *)0x38)
+#define  DDRB    (*(volatile unsigned char *)0x37)
+#define  PINB    (*(volatile unsigned char *)0x36)
+
+#define  PORTC    (*(volatile unsigned char *)0x35)
+#define  DDRC    (*(volatile unsigned char *)0x34)
+#define  PINC    (*(volatile unsigned char *)0x33)
+
+#define  PORTD    (*(volatile unsigned char *)0x32)
+#define  DDRD    (*(volatile unsigned char *)0x31)
+#define  PIND    (*(volatile unsigned char *)0x30)
+
+#define  F_CPU   8000000
+#include <util/delay.h>
+
+//#define add (*(unsigned char *)0x20)
+
+#define SET_BIT(reg,bit) (reg|=(1<<bit))
+#define CLR_BIT(reg,bit) (reg&=~(1<<bit))
+#define READ_BIT(reg,bit) ((reg>>bit)&1)
+
+int main(void)
+{
+	// control b1 led0 on ,b2 led0 off, b3 led7 on ,b4 led7 off
+	
+	char flag=0;
+	DDRB=0XFF;
+	DDRC=0;
+	PORTB=0;
+	//PORTC=0X0F; //pull up resistor (pin default vcc)
+	
+	while (1)
+	{
+		if(READ_BIT(PINC,0)==0)
+		{
+			SET_BIT(PORTB,0);
+		}
+		if(READ_BIT(PINC,1)==0)
+		{
+			CLR_BIT(PORTB,0);
+		}
+		if(!READ_BIT(PINC,2)) // ==0
+		{
+			SET_BIT(PORTB,7);
+		}
+		if(!READ_BIT(PINC,3))
+		{
+			CLR_BIT(PORTB,7);
+		}
+
+	}
+	
+}
+
+/***********************************************/
+// 1 button control leds on & off
+
+PORTB=0;
+	while (1)
+	{
+		if(READ_BIT(PINC,0)==0)
+		{
+			PORTB=~PORTB;
+			while(READ_BIT(PINC,0)==0);
+		}
+		
+	}
+==================
+PORTB=0;
+	while (1)
+	{
+		if(READ_BIT(PINC,0)==0)
+		{
+			if(PORTB==0)
+			{
+				PORTB=0xff;
+			}
+			else
+			{
+				PORTB=0;
+			}
+			
+			while(READ_BIT(PINC,0)==0); // blocking or busy wait
+		}
+		
+	}
+/******************************************/
+// 2 button 
+PORTB=0;
+	while (1)
+	{
+		if(READ_BIT(PINC,0)==0)
+		{
+			PORTB=PORTB^0x01;
+			while(READ_BIT(PINC,0)==0);
+		}
+		if(READ_BIT(PINC,1)==0)
+		{
+			PORTB=PORTB^0x02;
+			while(READ_BIT(PINC,1)==0);
+		}
+	}
+
+/******************************************/
+int main(void)
+{
+	
+	DDRB=0XFF;
+	DDRC=0;
+	
+	char flag=0;
+	PORTB=0;
+	while (1)
+	{
+		if(READ_BIT(PINC,0)==0)
+		{
+			if(flag==0)
+			{
+				PORTB=PORTB^0x01;
+				flag=1;
+			}
+			
+		}
+		else
+		{
+			flag=0;
+		}
+		
+	}
+	
+}
+/*************************************/
+
+//bouncing (appear in HW) 
+
+PORTB=0;
+	while (1)
+	{
+		if(READ_BIT(PINC,0)==0)
+		{
+			PORTB=~PORTB;
+			_delay_ms(30);   //<<<<<<<<<<<<<<<<<<<<<<
+			while(READ_BIT(PINC,0)==0); // block
+			_delay_ms(30);   //<<<<<<<<<<<<<<<<<<<<<<
+		}
+		
+	}
+	
+/**************************************/

@@ -1,0 +1,23 @@
+	
+	DIO_Init();
+	
+	LCD_Init();
+	KEYPAD_Init();
+	
+	ADC_Init(VREF_AVCC,ADC_SCALER_64);
+	
+	UART_Init();
+	u8 str[20];
+	LCD_SetCursor(1,1);
+	LCD_WriteString("UART");
+	UART_SendString("KARIM");
+	UART_SendString("ABDOU");
+	UART_SendNumber(0x3355eeff);
+	while (1)
+	{
+		UART_ReceiveString(str);
+		LCD_SetCursor(2,1);
+		LCD_WriteString(str);
+		LCD_WriteString("             ");
+		
+	}

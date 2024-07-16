@@ -1,0 +1,119 @@
+//if equal
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int string_len (char *str)
+{
+    int i;
+    for(i=0;str[i];i++);
+    return i;
+}
+
+int index_of_space (char *str)
+{
+    int i;
+    for(i=0;str[i]!=' ';i++);
+    return i;
+}
+
+void words_reverse (char *str)
+{
+    int i=string_len(str)-1,temp;
+    int j=index_of_space(str)-1;
+
+    for(;j>-1;)
+    {
+        temp=str[i];
+        str[i]=str[j];
+        str[j]=temp;
+        i--;
+        j--;
+    }
+
+}
+int main()
+{
+    char str[]="Ahmed salem";
+
+    words_reverse(str);
+    int i;
+    for(i=0;str[i];i++)
+    {
+        printf("%c",str[i]);
+    }
+
+    return 0;
+}
+/*****************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int long_1st_word (char *str)
+{
+    int i;
+    for(i=0;str[i]!=' ';i++);
+    return i;
+}
+int long_2nd_word (char *str)
+{
+    int i,count=0;
+    i=long_1st_word(str);
+    for(i=i+1;str[i];i++)
+    {
+        count++;
+    }
+    return count;
+}
+
+void words_reverse (char *str)
+{
+    int temp;
+    int word1=long_1st_word(str);
+    printf("%d\n",word1);
+    int word2=long_2nd_word(str);
+    printf("%d\n",word2);
+    int stringlong=word1+word2;
+    int j=stringlong;
+    printf("%d\n",stringlong);
+
+    for(;word1>=0;)
+    {
+        temp=str[stringlong];
+        str[stringlong]=str[word1];
+        str[word1]=temp;
+        word1--;
+        stringlong--;
+    }
+    int i=word2-1;
+    for(;i>0;i--)
+    {
+        temp=str[i];
+        str[i]=str[i-1];
+        str[i-1]=temp;
+    }
+    str[j]=' ';
+    //printf("%d\n%d",j,word2);
+    for(;j<=word2;j--)
+    {
+        temp=str[j];
+        str[j]=str[j-1];
+        str[j-1]=temp;
+    }
+
+}
+int main()
+{
+    char str[]="iam karimh";
+
+    words_reverse(str);
+    int i;
+    for(i=0;str[i];i++)
+    {
+        printf("%c",str[i]);
+    }
+
+    return 0;
+}
+/*******************************/

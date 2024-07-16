@@ -1,0 +1,236 @@
+void string_print(char *str)
+{
+    int i;
+    //  printf("f: size of %d\n",sizeof(str));
+    //printf("f: string len %d\n", string_len(str));
+    for(i=0; str[i] ; i++)
+    {
+        printf("%c",str[i]);
+    }
+    printf("\n");
+}
+/***************/
+int string_findChar(char*str,char ch)
+{
+    int i;
+    for(i=0; str[i]; i++)
+    {
+        if(str[i]==ch)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+/**********************/
+int string_len(char*str)
+{
+    int i;
+    for(i=0; str[i]; i++);
+    return i;
+
+}
+
+/*******************/
+
+void string_reverse(char*str)
+{
+    int i=0,j=string_len(str)-1;
+    char temp;
+    for(; i<=j;)
+    {
+        temp=str[i];
+        str[i]=str[j];
+        str[j]=temp;
+        i++;
+        j--;
+    }
+}
+/*****************/
+
+void string_covertToLower(char*str)
+{
+    int i;
+    for(i=0; str[i]; i++)
+    {
+        if(str[i]>='A'&&str[i]<='Z')
+        {
+            str[i]=str[i]-'A'+'a';
+        }
+    }
+}
+//********************/
+void string_covertToLower2(char*str,char*strnw)
+{
+    int i;
+    for(i=0; str[i]; i++)
+    {
+        if(str[i]>='A'&&str[i]<='Z')
+        {
+            strnw[i]=str[i]-'A'+'a';
+        }
+        else
+        {
+            strnw[i]=str[i];
+        }
+    }
+    strnw[i]=0;
+}
+/****************/
+char* string_covertToLower3(char*str)
+{
+    int i;
+    for(i=0; str[i]; i++)
+    {
+        if(str[i]>='A'&&str[i]<='Z')
+        {
+            str[i]=str[i]-'A'+'a';
+        }
+    }
+    return str;
+}
+/*****************/
+int string_compare(char*s1,char*s2)
+{
+    int i;
+    int l1=string_len(s1);
+    int l2=string_len(s2);
+    if(l1!=l2)
+    {
+        return 0;
+    }
+    for(i=0; s2[i]; i++)
+    {
+        if(s1[i]!=s2[i])
+        {
+            return 0;
+        }
+    }
+    return 1;
+
+}
+/*********************/
+int string_compare2(char*s1,char*s2)
+{
+    int i;
+
+    for(i=0; s2[i]||s1[i]; i++)
+    {
+        if(s1[i]!=s2[i])
+        {
+            return 0;
+        }
+
+    }
+    return 1;
+
+}
+int string_compareNotCaseSenstive(char*s1,char*s2)
+{
+
+}
+
+
+/*********************************************************************************/
+int sumToNum(int n)
+{
+    int i=0,sum=0;
+    for(i=1;i<=n;i++)
+    {
+        sum=sum+i;
+
+    }
+    printf("%d\n",sum);
+    return sum;
+}
+/***********/
+int sumToNum2(int n)
+{
+    int sum=0;
+  sum=(n*(n+1))/2;
+    printf("%d\n",sum);
+    return sum;
+}
+/*******************/
+
+
+int max_xor(int n1,int n2)
+{
+    int i,j,r,max=0,c=0,max_i,max_j;
+
+    for(i=n1;i<=n2;i++)
+    {
+        for(j=i+1;j<=n2;j++)
+        {
+            r=i^j;
+            if(r>=max)
+            {
+                max=r;
+                max_i=i;
+                max_j=j;
+            }
+            c++;
+          //  printf("%d   %d   %d\n",i,j,r);
+        }
+        //printf("==================================\n");
+    }
+    printf("max= %d^%d=%d   c=%d\n",max_i,max_j,max,c);
+
+    for(i=n1;i<=n2;i++)
+    {
+        for(j=i+1;j<=n2;j++)
+        {
+            r=i^j;
+            if(r==max)
+            {
+                printf("%d   %d   %d\n",i,j,r);
+            }
+
+
+        }
+       // printf("==================================\n");
+    }
+
+
+return max;
+
+}
+/****************************/
+//max x_or
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int max_xor(int n1,int n2)
+{
+    int i,j,r,max=0,c=0;
+    for(i=n1;i<=n2;i++)
+    {
+        for(j=i+1;j<=n2;j++)
+        {
+            r=i^j;
+            printf("%d  %d  %d\n",i,j,r);
+            if(r>max)
+            {
+                max=r;
+            }
+            c++;
+        }
+        printf("==================\n");
+    }
+    printf("counter = %d\t max = %d \n",c,max);
+    return max;
+}
+
+int main()
+{
+    char str1[]="kkkk";
+    char str2[]="kkk";
+    char newstr[100];
+
+    max_xor(10,15);
+
+    return 0;
+}
+/**************************/

@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    unsigned int x;
+    unsigned int y ;
+   printf("enter first nom. = ");
+   scanf("%d",&x);
+   printf("enter second nom. = ");
+   scanf("%d",&y);
+       if(x>y)
+       {
+           printf("the large nom = %d",x);
+       }
+    else if (x<y)
+    {
+        printf("the large nom = %d",y);
+    }
+    else
+    {
+        printf("equal numbers ");
+    }
+    return 0;
+}

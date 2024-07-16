@@ -1,0 +1,349 @@
+//list.h
+#define NULLPTR  ((void*)0)
+
+typedef enum{
+LIST_EMPTY,
+LIST_NOT_FOUND,
+LIST_DONE
+
+}listStatus_t;
+
+
+
+typedef struct node {
+
+int data;
+int cflag;
+struct node *next;
+}node_t;
+
+
+void list_print(node_t*head);
+void list_addToLast(node_t*head,int data);
+listStatus_t list_editData(node_t*head,int oldData,int newData);
+void list_addToFirst(node_t**head,int data);
+
+listStatus_t list_removeData(node_t**phead,int oldData);
+listStatus_t list_insertAfter(node_t*head,int prevData,int newData);
+
+/***************************************************/
+//main.c
+#include <stdio.h>
+#include <stdlib.h>
+#include "student.h"
+
+
+
+typedef struct
+{
+
+} s_t;
+
+typedef union
+{
+    struct
+    {
+        unsigned char c1;
+        unsigned char c2;
+        unsigned char c3;
+        unsigned char c4;
+        unsigned char c5;
+        unsigned char c6;
+        unsigned char c7;
+        unsigned char c8;
+    };
+    struct
+    {
+        unsigned short s1;
+        unsigned short s2;
+        unsigned short s3;
+        unsigned short s4;
+    };
+    struct
+    {
+        int i1;
+        int i2;
+    };
+    char arr[8];
+    long long l;
+
+} u_t;
+
+
+
+
+#define TIMER  ((u_t*)100)
+
+
+
+typedef union
+{
+
+    struct
+    {
+        char volt;
+        char current;
+        char HV_threhold;
+        char LV__threhold;
+        char speed;
+        int max_speed;
+        int  min_speed;
+        int  max_temp;
+
+
+
+    };
+
+
+
+
+} NVM_T;
+
+NVM_T nvm;
+
+
+/*
+void NVM_Write(int byte,int data)
+{
+
+    char*p=&nvm;
+
+    nvm.arr3[byte]=data;
+
+    switch(byte)
+    {
+        case 1;
+        nvm.volt=data;
+        break;
+
+    }
+
+}*/
+
+
+typedef enum
+{
+    SUNDAY=1,
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY
+} day_t;
+
+
+typedef enum
+{
+    M1,
+    M2,
+    M3,
+    M4
+
+} motor_t;
+
+void motor_on(motor_t m)
+{
+
+}
+
+
+
+typedef enum
+{
+    FALSE=0X55,
+    TRUE=0XAA
+} bool_t;
+
+typedef enum
+{
+    OK,
+    NOK,
+    BUSY,
+    OUT_OF_RANGE,
+    NULL_PTR
+
+
+} error_t;
+
+
+
+
+
+bool_t func()
+{
+    return FALSE;
+}
+
+/*
+day_t weekendfunc(day_t day)
+{
+    switch(day)
+    {
+    case SUNDAY:
+        printf("sunday\n");
+        break;
+    case MONDAY:
+        printf("Monday\n");
+        break;
+    case FRIDAY:
+        printf("course\n");
+        break;
+
+
+    }
+
+    return SATURDAY;
+}
+*/
+
+#include "stack.h"
+#include "list.h"
+
+
+int main()
+{
+ node_t* l1;
+
+ l1=createNode(5);
+list_print(l1);
+ l1=createNode(7);
+ l1->next=createNode(9);
+ l1->next->next=createNode(11);
+ l1->next->next->next=createNode(13);
+ l1->next->next->next->next=createNode(14);
+ list_print(l1);
+ list_addToLast(l1,17);
+ list_addToLast(l1,19);
+list_addToLast(l1,117);
+ list_addToLast(l1,119);
+ list_editData(l1,19,29);
+ list_print(l1);
+ list_editData(l1,19,39);
+ list_print(l1);
+ list_editData(l1,119,39);
+ list_editData(l1,7,10);
+ list_addToFirst(&l1,3);
+ list_addToFirst(&l1,30);
+ list_addToLast(l1,35);
+ list_addToFirst(&l1,33);
+list_print(l1);
+l1->next->next->next->next->next->next=l1->next->next;
+list_print(l1);
+    return 0;
+}
+
+
+
+
+/**********************************************/
+//list.c1
+#include "list.h"
+
+
+
+
+/*typedef struct node {
+
+int data;
+int cflag;
+struct node *next;
+}node_t;*/
+
+node_t*createNode(int data)
+{
+    node_t*newnode=malloc(sizeof(node_t));
+    newnode->data=data;
+    newnode->next=NULLPTR;
+    return newnode;
+
+}
+
+
+void list_print(node_t*head)
+{
+    node_t*current=head;
+    while(current!=NULLPTR)
+    {
+        printf("%d  ",current->data);
+        current=current->next;
+    }
+    printf("\n=========================================\n");
+
+}
+
+void list_addToLast(node_t*head,int data)
+{
+   node_t*newnode=createNode(data);
+   node_t*current=head;
+    while(current->next!=NULLPTR)
+    {
+        current=current->next;
+    }
+    current->next=newnode;
+}
+
+void list_addToFirst(node_t**phead,int data)
+{
+    node_t*newnode=createNode(data);
+    newnode->next=*phead;
+    *phead=newnode;
+
+}
+
+
+listStatus_t list_editData(node_t*head,int oldData,int newData)
+{
+  node_t*current=head;
+   while(current!=NULLPTR)
+    {
+        if(current->data==oldData)
+        {
+            current->data=newData;
+            return LIST_DONE;
+        }
+        current=current->next;
+    }
+    return LIST_NOT_FOUND;
+
+}
+
+listStatus_t list_removeData(node_t**phead,int oldData)
+{
+      node_t*current=*phead;
+      node_t*temp;
+      if(*phead==NULLPTR)
+      {
+          return LIST_EMPTY;
+      }
+      if(current->data==oldData)
+      {
+          temp=*phead;
+          *phead=current->next;
+          free(temp);
+          return LIST_DONE;
+      }
+   while(current->next!=NULLPTR)
+    {
+        if(current->next->data==oldData)
+        {
+            temp=current->next;
+            current->next=current->next->next;
+            free(temp);
+
+            return LIST_DONE;
+        }
+        current=current->next;
+    }
+     return LIST_NOT_FOUND;
+
+
+}
+
+listStatus_t list_insertAfter(node_t*head,int prevData,int newData)
+{
+
+
+}
+
+/*************************************************************/

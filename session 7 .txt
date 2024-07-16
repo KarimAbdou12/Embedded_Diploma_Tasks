@@ -1,0 +1,57 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+
+    while(1)
+    {
+        char i,x;
+        printf("enter character :\n");
+        scanf("%c",&x);
+        if(x>=65&&x<=90)
+        {
+            printf("capital\n");
+        }
+        else if(x>=97&&x<=122)
+        {
+            printf("small\n");
+        }
+        else
+        {
+            printf("not capital\n");
+        }
+    }
+    return 0;
+}
+
+/*******************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+
+    while(1)
+    {
+        char i,x;
+        printf("enter character :\n");
+        scanf("%c",&x);
+        if(x>=65&&x<=90)
+        {
+            printf("%c\n",x+32);
+        }
+        else if(x>=97&&x<=122)
+        {
+            printf("%c\n",x);
+        }
+        else
+        {
+            printf("not character\n");
+        }
+    }
+    return 0;
+}
+/********************************************************/

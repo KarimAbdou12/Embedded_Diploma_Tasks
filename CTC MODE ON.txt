@@ -1,0 +1,18 @@
+TOMER0	for interrupt
+	
+	TIMER0_Init(TIMER0_CTC_MODE,TIMER0_SCALER_8);
+	//TIMER0_OC0Mode(OC0_TOGGLE); 
+		
+	TIMER0_OC_InterruptEnable();
+	OCR0=100;
+/**********************************/
+
+TIMER0 	for interrupt &  toggle pin
+	
+	TIMER0_Init(TIMER0_CTC_MODE,TIMER0_SCALER_8);
+	TIMER0_OC0Mode(OC0_TOGGLE); 
+		
+	TIMER0_OC_InterruptEnable();
+	OCR0=100;
+	
+/***********************************/

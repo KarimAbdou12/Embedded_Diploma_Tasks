@@ -1,0 +1,66 @@
+  //odd and even numbers
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    unsigned int x ;
+
+    printf("Enter Number = ");
+    scanf("%d",&x);
+
+    if(x%2>0)
+    {
+        printf("%d is odd  number ",x);
+    }
+    else
+    {
+        printf("%d is even number ",x);
+    }
+
+    return 0;
+}
+ /*******************************************************************************************/
+ 
+ //the biggest number
+  
+  #include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    unsigned int x,y,z;
+
+    printf("Enter first number : ");
+    scanf("%d",&x);
+    printf("Enter second number : ");
+    scanf("%d",&y);
+    printf("Enter third number : ");
+    scanf("%d",&z);
+
+    if(x>y)
+    {
+        if(x>z)
+            printf("The biggest nom. is first nom. and it = %d",x);
+        else if (x<z)
+            printf("The biggest nom. is third nom. and it = %d",z);
+        else
+            printf("The biggest nom. is (%d) ",x);
+    }
+
+  else
+  {
+      if(x==y)
+       printf(" The biggest nom. is (%d) ",x);
+      else if(y>z)
+        printf("The biggest nom. is second nom. and it = %d",y);
+      else if (y<z)
+        printf("The biggest nom. is third nom. and it = %d",z);
+      else if (y==z)
+         printf("The biggest nom. is (%d) ",y);
+  }
+
+
+    return 0;
+}

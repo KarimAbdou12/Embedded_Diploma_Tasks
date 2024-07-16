@@ -1,0 +1,135 @@
+// Set OC0 on compare match when up-counting. Clear OC0 on compare match when downcounting.
+// OCR0 = LOW
+
+TOGGLE BY HARDWARE AT OCR0& AT TOP
+
+int main(void)
+{
+	
+	DIO_Init();
+	
+	LCD_Init();
+	KEYPAD_Init();
+	//MOTOR_Init();
+	
+	ADC_Init(VREF_AVCC,ADC_SCALER_64);
+	
+	sei();
+  
+	TCCR0=2; // prescaler 8 & config
+	TIMSK=3; // interruots 1 >> for overflow interrupt || 3  >> for overflow interrupt & compare match interrupt 
+	SET_BIT(TCCR0,COM00); // for ocr interrupt HW  & toggle oco compare match
+	SET_BIT(TCCR0,COM01);
+	SET_BIT(TCCR0,WGM01); //fast pwm
+	SET_BIT(TCCR0,WGM00);
+	
+	u8 i=1,x=0;
+	//TCNT0=1;
+	OCR0=255; // register compare match
+    while (1) 
+    {
+		LCD_SetCursor(2,1);
+		LCD_WriteNumber(x);
+		x++;
+		if(x==100)
+		x=0;
+		_delay_ms(500);
+    }
+}
+
+ISR(TIMER0_OC_vect)
+{
+	DIO_TogglePin(PINC1);
+}
+
+ISR(TIMER0_OV_vect)
+{
+	DIO_TogglePin(PINC0);
+}
+
+/******************************************************/
+//Clear OC0 on compare match when up-counting. Set OC0 on compare match when downcounting.
+//OCR0= HIGH
+
+TOGGLE BY HARDWARE AT OCR0& AT TOP
+int main(void)
+{
+	
+	DIO_Init();
+	
+	LCD_Init();
+	KEYPAD_Init();
+	//MOTOR_Init();
+	
+	ADC_Init(VREF_AVCC,ADC_SCALER_64);
+	
+	sei();
+  
+	TCCR0=2; // prescaler 8 & config
+	TIMSK=3; // interruots 1 >> for overflow interrupt || 3  >> for overflow interrupt & compare match interrupt 
+	
+	
+	//>>>>>>>>>>>>>>>>>>>>>//SET_BIT(TCCR0,COM00); // for ocr interrupt HW  & toggle oco compare match
+	
+	
+	SET_BIT(TCCR0,COM01);
+	SET_BIT(TCCR0,WGM01); //fast pwm
+	SET_BIT(TCCR0,WGM00);
+	
+	u8 i=1,x=0;
+	//TCNT0=1;
+	OCR0=255; // register compare match
+    while (1) 
+    {
+		LCD_SetCursor(2,1);
+		LCD_WriteNumber(x);
+		x++;
+		if(x==100)
+		x=0;
+		_delay_ms(500);
+    }
+}
+/*
+ISR(TIMER0_OC_vect)
+{
+	DIO_TogglePin(PINC1);
+}
+
+ISR(TIMER0_OV_vect)
+{
+	DIO_TogglePin(PINC0);
+}
+*/
+/*****************************************************/
+
+// driver
+
+/*******************************************************/
+how i can control duty by using pot meter
+
+u8 i=1,x=0;
+	//TCNT0=1;
+	OCR0=255; // register compare match
+	u16 adc;
+	
+    while (1) 
+    {
+		adc=ADC_Read(CH_0);
+		OCR0=adc/4;
+	}
+	
+/***************************************************/
+50HZ ,D.C.=10%
+
+//FOR TIMER1
+
+
+	Timer1_Init(TIMER1_FASTPWM_ICR_TOP_MODE,TIMER1_SCALER_8); // TOP 
+	Timer1_OCRA1Mode(OCRA_NON_INVERTING); // toggle on it
+	Timer1_OCRB1Mode(OCRB_INVERTING);// toggle on it
+	
+	ICR1=20000;
+	OCR1A=2000;
+	OCR1B=2000;
+	
+/*************************************************/
